@@ -1,4 +1,4 @@
-```python
+``python
 import time
 try:
     import beepy  # Vérifie si `beepy` est disponible.
@@ -51,6 +51,5 @@ def main():
     minuteur(duree)
 
 if __name__ == "__main__":
-    main()
-
-```
+    main() 
+``
