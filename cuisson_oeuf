@@ -1,0 +1,56 @@
+```python
+import time
+try:
+    import beepy  # Vérifie si `beepy` est disponible.
+except ImportError:
+    beepy = None
+
+def afficher_temps_restants(duree):
+    """Affiche le temps restant en format minutes:secondes"""
+    minutes = duree // 60
+    secondes = duree % 60
+    return f"Temps restant : {minutes:02d}:{secondes:02d}"
+
+def minuteur(duree):
+    """Fonction de minuteur qui affiche des points et le temps restant sur la même ligne
+    ici j'ai juste renplacé mon point par un emoji en omelette"""
+    print("Cuisson d'œuf démarrée 🥚...")
+    points=0
+    for i in range(duree, 0, -1):
+        # Afficher le temps restant sur la même ligne
+        points=(points %10) +1
+        if points == 10:
+            print()
+        print(f"\r{afficher_temps_restants(i)} {'🍳' * points}", end="", flush=True)
+        time.sleep(1)
+    print("\nCuisson terminée votre oeuf est prêt 🍳 bonne à pétit!")
+    if beepy:
+        beepy.beep(sound="ping")
+    else:
+        print("Beep ! (son non disponible)")
+
+def choisir_option():
+    """Demander à l'utilisateur de choisir une option de cuisson d'œufs"""
+    print("Choisissez une option de cuisson pour vos œufs :")
+    print("1 - Oeufs à la coque : 3 minutes")
+    print("2 - Oeufs mollets : 6 minutes")
+    print("3 - Oeufs durs : 9 minutes")
+    while True:
+        choix = input("Entrez 1, 2 ou 3 : ")
+        if choix == "1":
+            return 3 * 60  # Pour 3 minutes en secondes
+        elif choix == "2":
+            return 6 * 60  # Pour 6 minutes en secondes
+        elif choix == "3":
+            return 9 * 60  # Pour 9 minutes en secondes
+        else:
+            print("Choix invalide, essayez à nouveau.")
+
+def main():
+    duree = choisir_option()
+    minuteur(duree)
+
+if __name__ == "__main__":
+    main()
+
+```
